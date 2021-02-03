@@ -43,6 +43,7 @@ public class Network {
     }
 
     public void close(){
+        sc.disconnect();
         sc.close();
     }
 }

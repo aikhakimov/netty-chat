@@ -47,6 +47,14 @@ public class Handler extends SimpleChannelInboundHandler<String> {
         ctx.close();
     }
 
+    @Override
+    public void channelInactive(ChannelHandlerContext ctx) throws Exception {
+        channels.remove(ctx.channel());
+        String out = "[Сервер]: " + name + " отключился.\n";
+        broadcast(out);
+        ctx.close();
+    }
+
     private void broadcast(String out){
         for (Channel c : channels){
             c.writeAndFlush(out);
